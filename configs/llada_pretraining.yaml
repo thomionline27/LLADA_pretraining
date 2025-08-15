@@ -1,0 +1,63 @@
+wandb:
+  entity: null
+  resume: 'auto'
+
+experiment:
+    project: "llada-pretraining"
+    name: "llada-pretraining"
+    output_dir: "llada-pretraining"
+    save_every: 1000
+    eval_every: 100
+    generate_every: 10000
+    log_every: 10
+    log_grad_norm_every: 100
+    checkpoints_total_limit: 10
+
+model:
+    llada:
+        pretrained_model_path: ".../LLaDA-8B-Base/"
+        
+        # LLaDA specific configuration
+        llada_config:
+            gradient_checkpointing: false  # 关闭gradient checkpointing
+            # Add other LLaDA specific configs here if needed
+
+dataset:
+    params:
+        # Text data path - use your existing path
+        train_shards_path_or_url: ".../data_file"
+        
+        shuffle_buffer_size: 1000
+        num_workers: 8
+        pin_memory: true
+        persistent_workers: true
+
+    preprocessing:
+        max_seq_length: 512
+
+optimizer:
+    name: adamw
+    params:
+        learning_rate: 1e-5
+        scale_lr: false
+        beta1: 0.9
+        beta2: 0.999
+        weight_decay: 0.01
+        epsilon: 1e-8
+
+lr_scheduler:
+    scheduler: "cosine"
+    params:
+        learning_rate: ${optimizer.params.learning_rate}
+        warmup_steps: 1000
+        min_lr_scale: 0.1
+
+training:
+    gradient_accumulation_steps: 1
+    batch_size: 16  # 降到最小
+    mixed_precision: "bf16"
+    enable_tf32: true
+    seed: 42
+    max_train_steps: 100000
+    max_grad_norm: 1.0
+    lm_coeff: 1.0 
