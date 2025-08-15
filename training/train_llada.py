@@ -345,13 +345,6 @@ def main():
                 )
 
                 # Gather the losses across all processes for logging (if we use distributed training).
-                # print(f"GPU {accelerator.process_index} 收到的 batch_size_lm为{batch_size_lm}")
-                # loss = loss_lm 
-                # loss_lm_sum = loss_lm * batch_size_lm
-                # length_lm_sum = batch_size_lm
-                # sum_loss_lm = accelerator.gather(loss_lm_sum).sum()
-                # length_lm_len = accelerator.gather(length_lm_sum).sum()
-                # loss_lm = sum_loss_lm/ length_lm_len
                 avg_loss_lm = accelerator.gather(loss_lm.repeat(batch_size_lm)).mean()
                 loss = config.training.lm_coeff * loss_lm
 

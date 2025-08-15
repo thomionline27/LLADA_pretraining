@@ -9,7 +9,7 @@ export TOKENIZERS_PARALLELISM=true
 export WANDB_MODE=offline
 
 # Change to the project directory
-cd .../MMaDA
+cd .../LLaDA_pretraining
 
 # Run the training with accelerate
 
