@@ -20,7 +20,7 @@
 </p>
 
 ## 🌟 Introduction
-(Under testing...)
+Under testing...（目前还属于团队自用，上传上来的改动了一部分，可能有少许bug，正在测试中）
 This is a text pretraining framework for LLaDA models, modified from the [MMaDA](https://github.com/Gen-Verse/MMaDA) codebase.
 
 **Features:**
