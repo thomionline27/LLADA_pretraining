@@ -159,8 +159,9 @@ def main():
     #########################
     logger.info("Loading tokenizer and model")
 
-    # 完全按照train_mmada.py的方式 - 只是改为LLaDA模型
+    # LLaDA
     tokenizer = AutoTokenizer.from_pretrained(config.model.pretrained_model_path, padding_side="left")
+
 
     uni_prompting = UniversalPrompting(tokenizer, max_text_len=config.dataset.preprocessing.max_seq_length,
                                        special_tokens=(),
@@ -169,7 +170,7 @@ def main():
 
     print('special tokens : \n', uni_prompting.sptids_dict)
 
-    # Initialize LLaDA instead of MMaDA
+    # Initialize LLaDA
     base_config = AutoConfig.from_pretrained(config.model.pretrained_model_path).to_dict()
     llada_config_dict = {k: v for k, v in config.model.llada_config.items()} if hasattr(config.model, 'llada_config') else {}
     merged_config = {**base_config, **llada_config_dict}
@@ -243,8 +244,14 @@ def main():
         sampler=None, 
         collate_fn=dataset_lm.collate_fn,
         num_workers=dataset_config.num_workers,
-        drop_last=True
     )
+
+    estimated_samples_per_epoch = 100000
+    samples_per_update_step = config.training.batch_size * accelerator.num_processes * config.training.gradient_accumulation_steps
+    num_update_steps_per_epoch = math.ceil(estimated_samples_per_epoch / samples_per_update_step)
+    num_train_epochs = math.ceil(config.training.max_train_steps / num_update_steps_per_epoch)
+    
+  
 
     # Combine these dataloaders into a single iterable model - exactly like train_mmada.py
     iterables = {
@@ -271,12 +278,13 @@ def main():
     ##################################
     #             Training          #
     ##################################
-    logger.info("***** Running LLaDA text-only training *****")
+    logger.info("***** Running LLaDA pretraining *****")
     logger.info(f"  Num training steps = {config.training.max_train_steps}")
     logger.info(f"  Instantaneous batch size per device = {total_batch_size_per_gpu}")
     logger.info(f"  Total train batch size (w. parallel, distributed & accumulation) = {total_batch_size}")
     logger.info(f"  Gradient Accumulation steps = {config.training.gradient_accumulation_steps}")
-    logger.info(f"  Num epochs = {num_train_epochs}")
+    logger.info(f"  Num Steps = {config.training.max_train_steps}")
+    logger.info(f"  Num Epochs = {num_train_epochs}")
 
     @torch.no_grad()
     def prepare_inputs_and_labels_for_text(
