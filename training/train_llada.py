@@ -48,11 +48,10 @@ from models.logging import set_verbosity_info, set_verbosity_error
 from training.prompting_utils import UniversalPrompting
 
 from training.utils import get_config, flatten_omega_conf, AverageMeter
-print("库导入完成···")
 
 import os, wandb
 os.environ["WANDB_MODE"] = "offline"
-os.environ['WANDB_DIR'] = "../MMaDA/logs"
+os.environ['WANDB_DIR'] = "../LLaDA_pretraining/logs"
 run = wandb.init(project="myproj", mode="offline")
 
 SYSTEM_PROMPT_LEN = 28
