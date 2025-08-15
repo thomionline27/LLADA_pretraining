@@ -31,11 +31,6 @@ This is a text pretraining framework for LLaDA models, modified from the [MMaDA]
 
 ## 🚀 Quick Start
 
-### Environment Setup
-```bash
-pip install -r requirements.txt
-```
-
 ### Basic Training
 ```bash
 # Update paths in configs/llada_pretraining.yaml
