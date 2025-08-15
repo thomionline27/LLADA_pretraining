@@ -14,13 +14,13 @@ experiment:
     checkpoints_total_limit: 10
 
 model:
-    llada:
-        pretrained_model_path: ".../LLaDA-8B-Base/"
-        
-        # LLaDA specific configuration
-        llada_config:
-            gradient_checkpointing: false  # 关闭gradient checkpointing
-            # Add other LLaDA specific configs here if needed
+
+    pretrained_model_path: ".../LLaDA-8B-Base/"
+    
+    # LLaDA specific configuration
+    llada_config:
+        gradient_checkpointing: false  # 关闭gradient checkpointing
+        # Add other LLaDA specific configs here if needed
 
 dataset:
     params:

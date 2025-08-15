@@ -1,3 +1,2 @@
-from .modeling_magvitv2 import VQGANEncoder, VQGANDecoder, LFQuantizer, MAGVITv2
+from .modeling_llada import LLaDAModelLM, LLaDAConfig
 from .sampling import *
-from .modeling_mmada import MMadaModelLM, MMadaConfig
