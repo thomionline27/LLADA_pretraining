@@ -20,7 +20,7 @@
 </p>
 
 ## 🌟 Introduction
-
+(Under testing...)
 This is a text pretraining framework for LLaDA models, modified from the [MMaDA](https://github.com/Gen-Verse/MMaDA) codebase.
 
 **Features:**
