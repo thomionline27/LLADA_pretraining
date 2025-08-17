@@ -176,7 +176,7 @@ def main():
     llada_config = LLaDAConfig(**merged_config)
     model = LLaDAModelLM.from_pretrained(config.model.pretrained_model_path, torch_dtype=torch.bfloat16, config=llada_config)
     model.resize_token_embeddings(len(uni_prompting.text_tokenizer))
-    model.config.embedding_size = model.config.vocab_size
+    model.config.embedding_size = model.config.new_vocab_size
     model = model.to(accelerator.device)
 
     mask_id = model.config.mask_token_id

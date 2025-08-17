@@ -13,7 +13,7 @@ lightning
 datasets
 image-reward
 torchmetrics==1.6.2
-clip @ git+https://github.com/openai/CLIP.git
+clip==0.1.0 # clip @ git+https://github.com/openai/CLIP.git
 trl==0.17.0
 math_verify 
 gradio>=4.44.1

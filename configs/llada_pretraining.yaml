@@ -20,6 +20,7 @@ model:
     # LLaDA specific configuration
     llada_config:
         gradient_checkpointing: false  # 关闭gradient checkpointing
+        new_vocab_size: 126464
         # Add other LLaDA specific configs here if needed
 
 dataset:
