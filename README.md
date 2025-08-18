@@ -48,8 +48,12 @@ Edit `configs/llada_pretraining.yaml`:
 
 ```yaml
 model:
-  llada:
-    pretrained_model_path: "path/to/model"
+    pretrained_model_path: ".../LLaDA-8B-Base/"
+    # LLaDA specific configuration
+    llada_config:
+        gradient_checkpointing: false  # close gradient checkpointing
+        new_vocab_size: 126464
+        # Add other LLaDA specific configs here if needed
 
 dataset:
   params:
